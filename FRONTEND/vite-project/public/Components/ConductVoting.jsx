@@ -4,7 +4,7 @@ import WEB3 from 'web3';
 export default function ConductVoting() {
 
   const [showForm, setshowForm] = useState(false);
-  const [candidate, setCandidate] = useState([]);
+  const [candidate, setCandidate] = useState([])
   const [candidateIndex, setCandidateIndex] = useState([]);
   const [voter, setVoter] = useState('');
 
