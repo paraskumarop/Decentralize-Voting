@@ -10,7 +10,7 @@ import Footer from './components/Footer';
 import NewCoductVote from './components/NewCoductVote';
 
 
-const ABI =    [
+const ABI =   [
   {
     "inputs": [],
     "stateMutability": "nonpayable",
@@ -199,7 +199,7 @@ const ABI =    [
     "constant": true
   }
 ]
-
+const contractAddress='0xB73657Cc892a5d5EDb3d1121e282F84D3554AB19';
 function App() {
 
   const [isChairperson, setIsChairperson] = useState(false)
@@ -234,7 +234,7 @@ function App() {
     }, [])
     
     const checkIschairPerson = async () =>{ 
-    const Contract = new web3.eth.Contract(ABI, '0xbEF740472091D4d692959732F66d9F320C305B09');
+    const Contract = new web3.eth.Contract(ABI, contractAddress);
     const chairperson=await Contract.methods.chairPerson().call();
     const accounts= await web3.eth.getAccounts();
     setAccount(accounts);
@@ -247,9 +247,9 @@ function App() {
     <div className="App  border-gray-200 bg-gradient-to-r from-green-200 via-green-400 to-purple-700 font-thin text-cyan-50  ">
       <Navbar account={account}/>
        {  <VoteforCandidate contract={contract} account={account}/>}  
-      {isChairperson && <ConductVoting  contract={contract}/>}
-      {isChairperson && <NewCoductVote contract={contract}/>}
-      { isChairperson && <VotingResult isChairperson={isChairperson} contract={contract} account={account}/>}
+      {isChairperson && <ConductVoting  contract={contract}account={account} />}
+      {isChairperson && <NewCoductVote contract={contract} account={account}/>}
+       <VotingResult isChairperson={isChairperson} contract={contract} account={account}/>
       <Footer/>
       </div>
   )

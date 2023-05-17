@@ -6,6 +6,7 @@ let voterId = 0;
 
 export default function ConductVoting(props) {
   const { contract } = props;
+  const { account } = props;
   const [showForm, setshowForm] = useState(false);
   const [candidate, setCandidate] = useState("");
   const [candidateIndex, setCandidateIndex] = useState([]);
@@ -26,7 +27,7 @@ export default function ConductVoting(props) {
     candidateIndex.map((e) => candidates.push(e.name));
     const resultofadcandidate = await contract.methods
       .addCandidates(candidates)
-      .send({ from: "0x1dB5f56aeB891e77AcF735969dc608fA18bb8C4B" });
+      .send({ from: account[0]});
     console.log(resultofadcandidate);
   };
   const adAccounts = async () => {
@@ -35,7 +36,7 @@ export default function ConductVoting(props) {
     voterIndex.map((e) => accounts.push(e.name));
     const resultofadaccount = await contract.methods
       .approveVoter(accounts)
-      .send({ from: "0x1dB5f56aeB891e77AcF735969dc608fA18bb8C4B" });
+      .send({ from: account[0] });
     console.log(resultofadaccount);
   };
   // console.log(Contract)
@@ -84,7 +85,7 @@ export default function ConductVoting(props) {
                       type="submit"
                       onClick={(e) => {
                         setCandidateIndex([
-                          ...candidateIndex,
+                          ...candidateIndex ,
                           { id: candidateNum++, name: candidate },
                         ]);
                       }}

@@ -15,7 +15,7 @@ contract Voting {
     address public chairPerson;
     Candidate[] public candidates;
     mapping(address => Voter) public voters;
-
+    event ApproveVoter(address[] _approvedAddresses);
     constructor() {
         chairPerson = msg.sender;
     }
@@ -32,6 +32,7 @@ contract Voting {
     }
 
     function updateCandidates(string[] memory newCandidatesNames) public onlyChairperson{
+        votingEnded = false;
          delete candidates;
         for (uint256 i = 0; i < newCandidatesNames.length; i++) {
             candidates.push(Candidate({name: newCandidatesNames[i], voteCount: 0}));
@@ -48,8 +49,12 @@ contract Voting {
     ) public onlyChairperson {
         for (uint256 i = 0; i < votersToBeApproved.length; i++) {
             voters[votersToBeApproved[i]].canVote = true;
+            voters[votersToBeApproved[i]].hasVoted = false;
+            voters[votersToBeApproved[i]].vote = 0;
         }
+        emit ApproveVoter(votersToBeApproved);
     }
+    
 
     function vote(uint256 candidateIndex) public {
         Voter storage sender = voters[msg.sender];

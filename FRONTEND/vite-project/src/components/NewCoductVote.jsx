@@ -2,9 +2,12 @@ import React, { useState } from 'react'
 let candidateNum = 0;
 function NewCoductVote(props) {
   const {contract}=props;
+  const {account}=props;
   const [showForm, setshowForm] = useState(false);
   const [candidate, setCandidate] = useState("");
   const [candidateIndex, setCandidateIndex] = useState([]);
+  const [voter, setVoter] = useState("");
+  const [voterIndex, setVoterIndex] = useState([]);
 
 
     function handleNewConductVoting() {
@@ -13,11 +16,13 @@ function NewCoductVote(props) {
     function handleFormSubmit(e) {
       e.preventDefault();
     }
+
+
     const adCandidates = async () => {
       ///
       let candidates = [];
       candidateIndex.map((e) => candidates.push(e.name));
-      const resultofadcandidate = await contract.methods.updateCandidates(candidates).send({ from: "0x1dB5f56aeB891e77AcF735969dc608fA18bb8C4B" });
+      const resultofadcandidate = await contract.methods.updateCandidates(candidates).send({ from:account[0]});
       console.log(resultofadcandidate);
     };
   return (
@@ -37,7 +42,7 @@ function NewCoductVote(props) {
           >
                     <label className="block">
                       {" "}
-                      <h2 className="text-lg "> Candidates </h2>{" "}
+                      <h2 className="text-lg font-bold ">Add Candidates </h2>{" "}
                     </label>
 
                     <input
@@ -71,14 +76,14 @@ function NewCoductVote(props) {
                       Add Candidates
                     </button>
                   </form>
-                  <div>
-                    <h1>Candidates</h1>
+                  <div className='text-lg font-bold border'>
+                    <h1 >Candidates</h1>
 
                     <ul className="text-left">
                       {candidateIndex.map((candidate) => (
                         <li key={candidate.id}>
-                          {candidate.name}{" "}
-                          <button
+                           {candidate.name} 
+                        <button
                             className="btn"
                             onClick={() => {
                               setCandidateIndex(
@@ -87,9 +92,8 @@ function NewCoductVote(props) {
                                 )
                               );
                             }}
-                          >
-                            -
-                          </button>
+                          >-</button>
+                          
                         </li>
                       ))}
                     </ul>
