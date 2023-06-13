@@ -10,11 +10,24 @@ import Footer from './components/Footer';
 import NewCoductVote from './components/NewCoductVote';
 
 
-const ABI =   [
+const ABI =  [
   {
     "inputs": [],
     "stateMutability": "nonpayable",
     "type": "constructor"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address[]",
+        "name": "_approvedAddresses",
+        "type": "address[]"
+      }
+    ],
+    "name": "ApproveVoter",
+    "type": "event"
   },
   {
     "inputs": [
@@ -115,6 +128,33 @@ const ABI =   [
   {
     "inputs": [
       {
+        "internalType": "string",
+        "name": "title",
+        "type": "string"
+      }
+    ],
+    "name": "addTitle",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getTitle",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [
+      {
         "internalType": "string[]",
         "name": "newCandidatesNames",
         "type": "string[]"
@@ -192,6 +232,11 @@ const ABI =   [
         "internalType": "string",
         "name": "",
         "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
       }
     ],
     "stateMutability": "view",
@@ -199,7 +244,8 @@ const ABI =   [
     "constant": true
   }
 ]
-const contractAddress='0xB73657Cc892a5d5EDb3d1121e282F84D3554AB19';
+
+const contractAddress='0xC9410A933CFd624A549a43335aAee15a9D964272';
 function App() {
 
   const [isChairperson, setIsChairperson] = useState(false)

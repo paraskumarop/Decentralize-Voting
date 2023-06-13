@@ -9,6 +9,7 @@ export default function ConductVoting(props) {
   const { account } = props;
   const [showForm, setshowForm] = useState(false);
   const [candidate, setCandidate] = useState("");
+  const [title, setTitle] = useState("");
   const [candidateIndex, setCandidateIndex] = useState([]);
   const [voter, setVoter] = useState("");
   const [voterIndex, setVoterIndex] = useState([]);
@@ -21,6 +22,10 @@ export default function ConductVoting(props) {
   console.log(candidateIndex);
   console.log(contract);
   //using smartContract
+  const adTitle = async()=>{
+    const result = await contract.methods.addTitle(title).send({from: account[0]});
+    return result;
+  }
   const adCandidates = async () => {
     ///
     let candidates = [];
@@ -39,6 +44,7 @@ export default function ConductVoting(props) {
       .send({ from: account[0] });
     console.log(resultofadaccount);
   };
+
   // console.log(Contract)
   // console.log(web3)
   // console.log(candidateIndex)
@@ -64,6 +70,31 @@ export default function ConductVoting(props) {
                     className=" p-2 max-w-d h-full w-full bg-gray-700 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 border  border-slate-50  "
                     onSubmit={handleFormSubmit}
                   >
+                   <label className="block">
+                      {" "}
+                      <h2 className="text-lg "> Title </h2>{" "}
+                    </label>
+
+                    <input
+                      className="bg-white text-black leading-tight"
+                      type="text"
+                      name="Title"
+                      value={title}
+                      placeholder="Add Title"
+                      onChange={(e) => {
+                        setTitle(e.target.value);
+                      }}
+                    />
+
+                    <button
+                      className="relative inline-flex items-center justify-center mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 m-1 p-0.5"
+                      type="submit"
+                      onClick={adTitle}  
+                    >
+                      +
+                    </button>
+
+
                     <label className="block">
                       {" "}
                       <h2 className="text-lg "> Candidates </h2>{" "}

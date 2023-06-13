@@ -11,8 +11,10 @@ contract Voting {
         string name;
         uint256 voteCount;
     }
+    string Title;
     bool public votingEnded = false;
     address public chairPerson;
+     
     Candidate[] public candidates;
     mapping(address => Voter) public voters;
     event ApproveVoter(address[] _approvedAddresses);
@@ -30,6 +32,12 @@ contract Voting {
             candidates.push(Candidate({name: candidateNames[i], voteCount: 0}));
         }
     }
+    function addTitle(string memory title) public{
+         Title=title;
+     }
+     function getTitle() public view returns(string memory){
+         return Title;
+     }
 
     function updateCandidates(string[] memory newCandidatesNames) public onlyChairperson{
         votingEnded = false;
@@ -71,7 +79,7 @@ contract Voting {
         votingEnded = true;
     }
 
-    function getWinner() public view  returns (string memory) {
+    function getWinner() public view  returns (string memory,uint) {
         uint maxVotes = 0;
         string memory winner;
         require(votingEnded, "Voting is not Ended Yet");
@@ -81,6 +89,6 @@ contract Voting {
                 winner = candidates[i].name;
             }
         }
-        return winner;
+        return (winner,maxVotes);
     }
 }

@@ -5,6 +5,7 @@ export default function VoteforCandidate(props) {
   const { contract } = props;
   const { account } = props;
   console.log(account)
+  const [title, setTitle] = useState('');
   const [candidateNames, setCandidateNames] = useState([]);
   const [voting, setVoting] = useState(true);
   const [isOpen, setIsOpen] = useState(false)
@@ -15,6 +16,8 @@ export default function VoteforCandidate(props) {
   const handleVoting = async () => {
     setIsOpen(true);
     let candidates = await contract.methods.getCandidates().call();
+    let title= await contract.methods.getTitle().call();
+    setTitle(title);
     const newNames = candidates.map(member => member[0])
     console.log(newNames)
     setCandidateNames([...candidateNames, ...newNames]);
@@ -59,6 +62,7 @@ export default function VoteforCandidate(props) {
         isOpen &&  <div className="VotingCard bg- border-gray-200 bg-gradient-to-r from-green-200 via-green-400 to-purple-700 font-thin text-cyan-50 h-full flex flex-col items-center ">
 
 
+          <h1 className="text-5xl font-bold m-4-0"> {title.toUpperCase()}</h1>
           <h3 className="mb-4 font-bold text-lg text-gray-900 dark:text-white">CANDIDATES</h3>
 
           <ul className="text-sm font-medium w-48 h-auto  bg-gray-700 rounded-md bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-10 border border-gray-100">
