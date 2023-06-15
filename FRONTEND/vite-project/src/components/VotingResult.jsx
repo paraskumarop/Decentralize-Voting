@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import React from 'react'
 
 function VotingResult(props) {
@@ -8,17 +8,6 @@ function VotingResult(props) {
     const [winner, setWinner] = useState('');
     const [maxVotes, setMaxVotes] = useState('');
     const { contract, account } = props;
-    // useEffect( () => {
-    //     let votinEnd;
-    //     (async ()=>{
-
-    //         votinEnd =await contract.methods.votingEnded().call({from: account[0]}); 
-    //         console.log(votinEnd);
-          
-    //     })
-    //     console.log(votinEnd)
-    //     console.log('hilo')
-    // }, [])
     
     const handleEndVoting=async()=>{
         setVotingEndedClicked(true);

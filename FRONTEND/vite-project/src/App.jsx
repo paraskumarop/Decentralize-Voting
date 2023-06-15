@@ -1,5 +1,5 @@
 import { useEffect, useState} from 'react'
-import { BrowserRouter, Route ,Routes} from 'react-router-dom';
+// import {detectEthereumProvider} from '@metamask/detect-provider';
 import Web3 from 'web3';
 import './App.css'
 import ConductVoting from './components/ConductVoting';
@@ -256,26 +256,27 @@ function App() {
  
   
                                   // ********linking of Metamask**************
-  const loadWeb3=async ()=>{
-    if(typeof window.ethereum !== 'undefined')
+  // const loadWeb3=async ()=>{
+  //   if(typeof window.ethereum !== 'undefined')
     
-    try {
+  //   try {
       
-      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-    } catch (error) {
-      console.log(error);
-    }
-    else if(Web3){
-      const web3= new Web3(Web3.currentProvider);      
-      // setHasMetamask(true);
+  //     const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+  //   } catch (error) {
+  //     window.alert('No Wallet Found ! Install Metamask',error);
+  //   }
+  //   else if(Web3){
+  //     const web3= new Web3(Web3.currentProvider);      
+  //     // setHasMetamask(true);
       
-    }
-    else{
-      window.alert('No')
-    }
-  }
+  //   }
+  //   else{
+  //     window.alert('No')
+  //   }
+  // }
+  
     useEffect(() => {
-      loadWeb3();
+      // loadWeb3();
       checkIschairPerson();
     }, [])
     
