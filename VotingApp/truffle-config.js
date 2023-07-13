@@ -1,3 +1,4 @@
+
 /**
  * Use this file to configure your truffle project. It's seeded with some
  * common settings for different networks and features like migrations,
@@ -25,30 +26,36 @@
  * and Infura PROJECT_ID variables inside.
  * For example, your .env file will have the following structure:
  *
- * MNEMONIC = <Your 12 phrase mnemonic>
- * PROJECT_ID = <Your Infura project id>
- *
+*
 
- * Deployment with Truffle Dashboard (Recommended for best security practice)
- * --------------------------------------------------------------------------
- *
- * Are you concerned about security and minimizing rekt status 🤔?
- * Use this method for best security:
- *
- * Truffle Dashboard lets you review transactions in detail, and leverages
- * MetaMask for signing, so there's no need to copy-paste your mnemonic.
- * More details can be found at 🔎:
- *
- * https://trufflesuite.com/docs/truffle/getting-started/using-the-truffle-dashboard/
- */
+* Deployment with Truffle Dashboard (Recommended for best security practice)
+* --------------------------------------------------------------------------
+*
+* Are you concerned about security and minimizing rekt status 🤔?
+* Use this method for best security:
+*
+* Truffle Dashboard lets you review transactions in detail, and leverages
+* MetaMask for signing, so there's no need to copy-paste your mnemonic.
+* More details can be found at 🔎:
+*
+* https://trufflesuite.com/docs/truffle/getting-started/using-the-truffle-dashboard/
+*/
+
+const HDWalletProvider = require('@truffle/hdwallet-provider');
+
+// MNEMONIC = <Your 12 phrase mnemonic>
+require('dotenv').config()
+
 
 module.exports = {
   networks: {
-    development: {
-      host: "127.0.0.1",
-      port: 7545,
-      network_id: "*" // Match any network id
-    }
+ 
+      sepolia: {
+      provider: () => new HDWalletProvider(process.env.PRIVATE_KEY,process.env.PROJECT_ID),
+      network_id: "11155111",
+      gas: 4465030,
+      networkCheckTimeout: 20000,     // Custom network
+    },
   },
   compilers: {
     solc: {
@@ -80,14 +87,7 @@ module.exports = {
     // },
     //
     // An additional network, but with some advanced options…
-    // advanced: {
-    //   port: 8777,             // Custom port
-    //   network_id: 1342,       // Custom network
-    //   gas: 8500000,           // Gas sent with each transaction (default: ~6700000)
-    //   gasPrice: 20000000000,  // 20 gwei (in wei) (default: 100 gwei)
-    //   from: <address>,        // Account to send transactions from (default: accounts[0])
-    //   websocket: true         // Enable EventEmitter interface for web3 (default: false)
-    // },
+  
     //
     // Useful for deploying to a public network.
     // Note: It's important to wrap the provider as a function to ensure truffle uses a new provider every time.

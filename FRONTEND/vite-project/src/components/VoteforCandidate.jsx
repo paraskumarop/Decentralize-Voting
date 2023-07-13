@@ -4,7 +4,6 @@ let candidId = 0;
 export default function VoteforCandidate(props) {
   const { contract } = props;
   const { account } = props;
-  console.log(account)
   const [title, setTitle] = useState('');
   const [candidateNames, setCandidateNames] = useState([]);
   const [voting, setVoting] = useState(true);
@@ -19,7 +18,6 @@ export default function VoteforCandidate(props) {
     let title= await contract.methods.getTitle().call();
     setTitle(title);
     const newNames = candidates.map(member => member[0])
-    console.log(newNames)
     setCandidateNames([...candidateNames, ...newNames]);
   }
 
@@ -28,8 +26,7 @@ export default function VoteforCandidate(props) {
   }
 
   const handleSubmitVote = async () => {
-    console.log(selectedOption)
-    contract.methods.vote(selectedOption).send({ from: account[0] }).then((err, reciept) => { if (!err) { console.log(reciept) } });
+    contract.methods.vote(selectedOption).send({ from: account }).then((err, reciept) => { if (!err) { console.log(reciept) } });
   }
 
 

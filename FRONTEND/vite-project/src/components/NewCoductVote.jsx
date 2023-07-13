@@ -22,8 +22,7 @@ function NewCoductVote(props) {
       ///
       let candidates = [];
       candidateIndex.map((e) => candidates.push(e.name));
-      const resultofadcandidate = await contract.methods.updateCandidates(candidates).send({ from:account[0]});
-      console.log(resultofadcandidate);
+      const resultofadcandidate = await contract.methods.updateCandidates(candidates).send({ from:account});
     };
   return (
     <div className='buttonClass flex border-gray-200 bg-gradient-to-r from-green-200 via-green-400 to-purple-700 font-thin text-cyan-50 flex-col  text-center items-center'>

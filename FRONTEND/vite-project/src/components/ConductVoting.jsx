@@ -19,11 +19,10 @@ export default function ConductVoting(props) {
   function handleFormSubmit(e) {
     e.preventDefault();
   }
-  console.log(candidateIndex);
-  console.log(contract);
+
   //using smartContract
   const adTitle = async()=>{
-    const result = await contract.methods.addTitle(title).send({from: account[0]});
+    const result = await contract.methods.addTitle(title).send({from: account});
     return result;
   }
   const adCandidates = async () => {
@@ -32,8 +31,7 @@ export default function ConductVoting(props) {
     candidateIndex.map((e) => candidates.push(e.name));
     const resultofadcandidate = await contract.methods
       .addCandidates(candidates)
-      .send({ from: account[0]});
-    console.log(resultofadcandidate);
+      .send({ from: account});
   };
   const adAccounts = async () => {
     ///
@@ -41,13 +39,11 @@ export default function ConductVoting(props) {
     voterIndex.map((e) => accounts.push(e.name));
     const resultofadaccount = await contract.methods
       .approveVoter(accounts)
-      .send({ from: account[0] });
-    console.log(resultofadaccount);
+      .send({ from: account });
+  
   };
 
-  // console.log(Contract)
-  // console.log(web3)
-  // console.log(candidateIndex)
+
   return (
     <>
       {!showForm ? (

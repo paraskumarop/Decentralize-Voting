@@ -8,22 +8,19 @@ function VotingResult(props) {
     const [winner, setWinner] = useState('');
     const [maxVotes, setMaxVotes] = useState('');
     const { contract, account } = props;
-    
     const handleEndVoting=async()=>{
         setVotingEndedClicked(true);
-        const result = await contract.methods.endVoting().send({ from: account[0] });
+        const result = await contract.methods.endVoting().send({ from: account});
         setVotinEnded(true);
-        // console.log(result)
     }
     const handleGetWinner = async () => {
         setVotingEndedClicked(true);
-        let votinEnd =await contract.methods.votingEnded().call({from: account[0]}); 
+        let votinEnd =await contract.methods.votingEnded().call({from: account}); 
         if(votinEnd){
-          const  Winner = await contract.methods.getWinner().call({from: account[0]});
+          const  Winner = await contract.methods.getWinner().call({from: account});
             setWinner(Winner[0]);
             setMaxVotes(Winner[1]);
             setVotinEnded(true);
-            console.log(winner)
         }
         else{
             console.log("Voting is Not Ended yet")
